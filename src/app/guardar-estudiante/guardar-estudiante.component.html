@@ -1,0 +1,61 @@
+<h2 mat-dialog-title *ngIf="data.id == 0">Registrar Estudiante</h2>
+<h2 mat-dialog-title *ngIf="data.id != 0">Actualizar Estudiante</h2>
+
+<mat-dialog-content>
+    <form [formGroup]="formEstudiante">
+        <div class="row">
+            <div class="col-12">
+                <mat-form-field>
+                    <mat-label>Tipo Identificacion</mat-label>
+                    <mat-select formControlName="idTipoIdentificacion">
+                        <mat-option *ngFor="let item of selectTipoIdentificacion" [value]="item.id">
+                            {{item.nombre}} - {{item.descripcion}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-12">
+                <mat-form-field>
+                    <mat-label>Numero Identificacion</mat-label>
+                    <input matInput type="number" formControlName="numeroIdentificacion">
+                </mat-form-field>
+            </div>
+            <div class="col-12">
+                <mat-form-field>
+                    <mat-label>Nombre</mat-label>
+                    <input matInput placeholder="Escriba su nombre" type="text" formControlName="nombre">
+                </mat-form-field>
+            </div>
+            <div class="col-12">
+                <mat-form-field>
+                    <mat-label>Apellido</mat-label>
+                    <input matInput placeholder="Escriba su apellido" type="text" formControlName="apellido">
+                </mat-form-field>
+            </div>
+            <div class="col-12">
+                <mat-form-field>
+                    <mat-label>Fecha nacimiento</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="fechaNacimiento">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="col-12">
+                <mat-form-field>
+                    <mat-label>Tipo sangre</mat-label>
+                    <mat-select formControlName="idTipoSangre">
+                        <mat-option *ngFor="let item of selectTipoSangre" [value]="item.id">
+                            {{item.nombre}}  {{item.descripcion}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button class="btn btn-secundary" mat-dialog-close>Cancelar</button>
+    <button class="btn btn-success" (click)="guardarOrActualizar()" [disabled]="!formEstudiante.valid" *ngIf="data.id == 0">Registrar</button>
+    <button class="btn btn-primary" (click)="guardarOrActualizar()"  [disabled]="!formEstudiante.valid"  *ngIf="data.id != 0">Actualizar</button>
+</mat-dialog-actions>
